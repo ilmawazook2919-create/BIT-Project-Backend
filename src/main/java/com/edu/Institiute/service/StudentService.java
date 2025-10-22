@@ -6,7 +6,7 @@ import com.edu.Institiute.dto.responseDto.paginated.PaginatedResponseStudentDto;
 
 import java.sql.SQLException;
 
-public interface StudentService {
+public interface  StudentService {
 
     CommonResponseDto saveStudent(RequestRegistryDto dto);
 
