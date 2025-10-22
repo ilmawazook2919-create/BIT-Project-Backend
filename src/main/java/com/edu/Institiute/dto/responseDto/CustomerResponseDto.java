@@ -1,30 +1,19 @@
-package com.edu.Institiute.dto.requestDto;
+package com.edu.Institiute.dto.responseDto;
+
 
 import com.edu.Institiute.dto.StatusDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Data
-public class RequestRegistryDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CustomerResponseDto {
 
-    // Student
-    private String studentCode;
-    private String studentName;
-    private String studentAge;
-    private String studentNic;
-    private Integer status;
-
-    // Course
-    private String courseCode;
-    private String courseName;
-
-
-    // Customer
+    private int id;
     private String customerFName;
     private String customerLName;
     private String customerContact;
@@ -34,5 +23,5 @@ public class RequestRegistryDto {
     private Date customerCreatedDate;
     private String customerModifyBy;
     private Date customerModifyDate;
-
+    private StatusDto status;
 }
