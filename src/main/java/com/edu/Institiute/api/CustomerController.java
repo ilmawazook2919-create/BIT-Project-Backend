@@ -2,6 +2,7 @@ package com.edu.Institiute.api;
 
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
+import com.edu.Institiute.service.CourseService;
 import com.edu.Institiute.service.CustomerService;
 import com.edu.Institiute.utill.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
-
-
     @Autowired
     private CustomerService customerService;
 
@@ -30,4 +29,6 @@ public class CustomerController {
                 HttpStatus.CREATED
         );
     }
+
+
 }
