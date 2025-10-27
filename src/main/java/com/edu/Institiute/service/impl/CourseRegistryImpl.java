@@ -121,10 +121,10 @@ public class CourseRegistryImpl implements CourseService {
     public PaginatedResponseCourseDto allCourse() throws SQLException {
         try {
             List<Course> allCourseForProvidedId = courseRepo.findAll();
-            List<CourseResponseDto> courseResponseDos = new ArrayList<>();
+            List<CourseResponseDto> courseResponseDtos = new ArrayList<>();
 
             for (Course r : allCourseForProvidedId) {
-                courseResponseDos.add(
+                courseResponseDtos.add(
                         new CourseResponseDto(
                                 r.getId(),
                                 r.getCourseCode(),
@@ -134,7 +134,7 @@ public class CourseRegistryImpl implements CourseService {
             }
             return new PaginatedResponseCourseDto(
                     courseRepo.count(),
-                    courseResponseDos
+                    courseResponseDtos
             );
         }catch (Exception e){
             throw new EntryNotFoundException("Can't find any data...!");

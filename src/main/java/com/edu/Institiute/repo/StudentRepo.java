@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudentRepo extends JpaRepository<Student,Integer> {
-
-    @Query(value = "SELECT * FROM student WHERE id=:studentCode", nativeQuery = true)
-    List<Student> getAllStudentForProvidedId(@Param("studentCode") String studentCode);
+public interface StudentRepo extends JpaRepository<Student,Integer> { @Query(value = "SELECT * FROM student WHERE id=:studentCode", nativeQuery = true)
+List<Student> getAllStudentForProvidedId(@Param("studentCode") String studentCode);
 
     @Query(value = "SELECT COUNT(*) FROM student WHERE studentcode=:studentCode", nativeQuery = true)
     Long countAllStudentForProvidedId(@Param("studentCode") String studentCode);
@@ -29,5 +27,6 @@ public interface StudentRepo extends JpaRepository<Student,Integer> {
 
     @Query(value = "SELECT * FROM student WHERE id in (SELECT student_id FROM student_has_course WHERE course_id=:courseId)", nativeQuery = true)
     List<Student> findByStudentIdForClass(@Param("courseId") String courseId);
+
 
 }
