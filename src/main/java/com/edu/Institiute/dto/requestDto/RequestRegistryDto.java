@@ -12,6 +12,9 @@ import java.util.Date;
 @Data
 public class RequestRegistryDto {
 
+
+
+
     // Student
     private String studentCode;
     private String studentName;
@@ -35,4 +38,19 @@ public class RequestRegistryDto {
     private String customerModifyBy;
     private Date customerModifyDate;
 
+    // Supplier
+
+    private String supplierName;
+    private String supplierContact;
+    private String supplierEmail;
+    private String supplierAddress;
+    private String supplierContactPerson;
+    private String supplierCreatedBy;
+    private Date supplierCreatedDate;
+    private String supplierModifyBy;
+    private Date supplierModifyDate;
+
 }
+
+
+

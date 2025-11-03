@@ -1,9 +1,9 @@
 package com.edu.Institiute.api;
 
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
-import com.edu.Institiute.dto.requestDto.RequestTeacherDto;
+
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
-import com.edu.Institiute.service.CustomerService;
+import com.edu.Institiute.service.SupplierService;
 import com.edu.Institiute.utill.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,26 +14,15 @@ import java.sql.SQLException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1/customer")
-public class CustomerController {
+@RequestMapping("/api/v1/supplier")
+
+public class SupplierController {
     @Autowired
-    private CustomerService customerService;
+private SupplierService supplierService;
 
     @PostMapping
-    public ResponseEntity<StandardResponse> savedCustomer(@RequestBody RequestRegistryDto data){
-        CommonResponseDto responseData = customerService.saveCustomer(data);
-        return new ResponseEntity<>(
-                new StandardResponse(
-                        responseData.getCode(),
-                        responseData.getMessage(),
-                        responseData.getData()
-                ),
-                HttpStatus.CREATED
-        );
-    } @CrossOrigin(origins = "http://localhost:4200/")
-    @PutMapping("{CustomerId}")
-    public ResponseEntity<StandardResponse> updateCustomer(@RequestBody RequestRegistryDto data, @PathVariable String CustomerId) {
-        CommonResponseDto responseData = customerService.updateCustomer(data, CustomerId);
+    public ResponseEntity<StandardResponse> savedSupplier(@RequestBody RequestRegistryDto data){
+        CommonResponseDto responseData = supplierService.saveSupplier(data);
         return new ResponseEntity<>(
                 new StandardResponse(
                         responseData.getCode(),
@@ -44,9 +33,9 @@ public class CustomerController {
         );
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @DeleteMapping("{CustomerId}")
-    public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable String CustomerId){
-        CommonResponseDto responseData = customerService.removeCustomer(CustomerId);
+    @PutMapping("{SupplierId}")
+    public ResponseEntity<StandardResponse> updateSupplier(@RequestBody RequestRegistryDto data, @PathVariable String SupplierId) {
+        CommonResponseDto responseData = supplierService.updateSupplier(data, SupplierId);
         return new ResponseEntity<>(
                 new StandardResponse(
                         responseData.getCode(),
@@ -57,27 +46,41 @@ public class CustomerController {
         );
     }
     @CrossOrigin(origins = "http://localhost:4200/")
-    @GetMapping("{CustomerId}")
-    public ResponseEntity<StandardResponse> getCustomer(@PathVariable String CustomerId)throws SQLException {
+    @DeleteMapping("{SupplierId}")
+    public ResponseEntity<StandardResponse> deleteSupplier(@PathVariable String SupplierId){
+        CommonResponseDto responseData = supplierService.removeSupplier(SupplierId);
+        return new ResponseEntity<>(
+                new StandardResponse(
+                        responseData.getCode(),
+                        responseData.getMessage(),
+                        responseData.getData()
+                ),
+                HttpStatus.CREATED
+        );
+    }
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("{SupplierId}")
+    public ResponseEntity<StandardResponse> getSupplier(@PathVariable String SupplierId)throws SQLException {
         return new ResponseEntity<>(
                 new StandardResponse(
                         200,
                         "Customer List",
-                        customerService.CustomerById(CustomerId)),
+                        supplierService.SupplierById(SupplierId)),
                 HttpStatus.OK
         );
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping
-    public ResponseEntity<StandardResponse> getAllCustomer()throws SQLException{
+    public ResponseEntity<StandardResponse> getAllSupplier()throws SQLException{
         return new ResponseEntity<>(
                 new StandardResponse(
                         200,
-                        "Customer List",
-                        customerService.allCustomer()),
+                        " Supplier List",
+                        supplierService.allSupplier()),
                 HttpStatus.OK
         );
     }
-}
 
+
+}
 

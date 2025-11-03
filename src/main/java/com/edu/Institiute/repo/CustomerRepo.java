@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
     @Query(value = "SELECT * FROM customer WHERE id=:customerId", nativeQuery = true)
-    Customer getCustomerByProvideID(@Param("customerId") String customerId);
+    Customer  getCustomerByProvideID(@Param("customerId") String customerId);
 
     @Query(value = "SELECT * FROM customer WHERE id=:customerId", nativeQuery = true)
     List<Customer> getAllCustomer(@Param("customerId") String customerId);
