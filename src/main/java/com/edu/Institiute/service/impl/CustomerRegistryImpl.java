@@ -135,7 +135,8 @@ public class CustomerRegistryImpl implements CustomerService {
         }catch (Exception e){
             throw new EntryNotFoundException("Can't find any data for provided ID...!");
         }
-    }@Override
+    }
+    @Override
     public CommonResponseDto removeCustomer(String CustomerId) {
         Customer Customer= customerRepo.findByCustomerId(CustomerId);
 
