@@ -42,6 +42,7 @@ public class CustomerRegistryImpl implements CustomerService {
 
     @Autowired
     private StatusMapper statusMapper;
+
     @Autowired
     private CustomerService customerService;
 
@@ -64,7 +65,7 @@ public class CustomerRegistryImpl implements CustomerService {
                     dto.getCustomerCreatedBy(),
                     new Date(),
                     dto.getCustomerModifyBy(),
-                    new Date(),
+                    null,
                     statusMapper.toStatusDto(status)
 
             );
@@ -102,7 +103,6 @@ public class CustomerRegistryImpl implements CustomerService {
         }
     }
 
-
     @Override
     public PaginatedResponseCustomerDto CustomerById(String customerId) throws SQLException {
         try {
@@ -136,6 +136,7 @@ public class CustomerRegistryImpl implements CustomerService {
             throw new EntryNotFoundException("Can't find any data for provided ID...!");
         }
     }
+
     @Override
     public CommonResponseDto removeCustomer(String CustomerId) {
         Customer Customer= customerRepo.findByCustomerId(CustomerId);
@@ -149,6 +150,7 @@ public class CustomerRegistryImpl implements CustomerService {
             throw new EntryNotFoundException("Can't find any customer Data...!");
         }
     }
+
     @Override
     public PaginatedResponseCustomerDto allCustomer() throws SQLException {
         try {

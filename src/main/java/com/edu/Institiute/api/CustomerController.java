@@ -1,7 +1,7 @@
 package com.edu.Institiute.api;
 
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
-import com.edu.Institiute.dto.requestDto.RequestTeacherDto;
+
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
 import com.edu.Institiute.service.CustomerService;
 import com.edu.Institiute.utill.StandardResponse;
@@ -30,7 +30,9 @@ public class CustomerController {
                 ),
                 HttpStatus.CREATED
         );
-    } @CrossOrigin(origins = "http://localhost:4200/")
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("{CustomerId}")
     public ResponseEntity<StandardResponse> updateCustomer(@RequestBody RequestRegistryDto data, @PathVariable String CustomerId) {
         CommonResponseDto responseData = customerService.updateCustomer(data, CustomerId);
