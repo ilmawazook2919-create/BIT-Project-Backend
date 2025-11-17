@@ -51,4 +51,6 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name="status_id", referencedColumnName = "id")
     private Status status;
+
+
 }
