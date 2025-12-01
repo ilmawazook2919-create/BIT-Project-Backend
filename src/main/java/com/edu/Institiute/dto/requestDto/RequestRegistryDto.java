@@ -67,6 +67,16 @@ public class RequestRegistryDto {
     private Date partModifiedDate;
 
 
+    //category
+    private String categoryName;
+    private String categoryDescription;
+    private String categoryCreatedBy;
+    private Date categoryCreatedDate;
+    private String categoryModifiedBy;
+    private Date categoryModifiedDate;
+
+
+
 }
 
 

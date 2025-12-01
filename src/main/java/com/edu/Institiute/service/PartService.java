@@ -1,6 +1,5 @@
 package com.edu.Institiute.service;
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
-import com.edu.Institiute.dto.requestDto.RequestTeacherDto;
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
 import com.edu.Institiute.dto.responseDto.paginated.PaginatedResponsePartDto;
 
@@ -12,5 +11,5 @@ public interface PartService {
     CommonResponseDto updatePart(RequestRegistryDto dto, String partId);
     CommonResponseDto removePart(String partId);
     PaginatedResponsePartDto allPart() throws SQLException;
-    PaginatedResponsePartDto PartById(String prtId) throws SQLException;
+    PaginatedResponsePartDto PartById(String partId) throws SQLException;
 }
