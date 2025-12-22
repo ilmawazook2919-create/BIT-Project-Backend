@@ -43,6 +43,7 @@ public class CategoryRegistryImpl implements CategoryService{
 
     @Autowired
     private CategoryService categoryService;
+
     @Override
     public CommonResponseDto saveCategory(RequestRegistryDto dto) {
         System.out.println("Data Object :" + dto);
@@ -72,6 +73,7 @@ public class CategoryRegistryImpl implements CategoryService{
             throw new EntryNotFoundException("Can't Save because of this Error -->  " + e);
         }
     }
+
     @Override
     public CommonResponseDto updateCategory(RequestRegistryDto dto, String categoryId) {
         try {

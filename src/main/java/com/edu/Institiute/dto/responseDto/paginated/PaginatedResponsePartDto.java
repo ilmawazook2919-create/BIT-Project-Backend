@@ -12,6 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PaginatedResponsePartDto {
     private Long count;
-    private List<PaginatedResponsePartDto> dataList;
+    private List<PartResponseDto> dataList;
 
 }

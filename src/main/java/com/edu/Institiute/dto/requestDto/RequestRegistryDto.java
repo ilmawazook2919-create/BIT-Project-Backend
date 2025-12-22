@@ -13,9 +13,6 @@ import java.util.Date;
 @Data
 public class RequestRegistryDto {
 
-
-
-
     // Student
     private String studentCode;
     private String studentName;
@@ -26,7 +23,6 @@ public class RequestRegistryDto {
     // Course
     private String courseCode;
     private String courseName;
-
 
     // Customer
     private String customerFName;
@@ -40,7 +36,6 @@ public class RequestRegistryDto {
     private Date customerModifyDate;
 
     // Supplier
-
     private String supplierName;
     private String supplierContact;
     private String supplierEmail;
@@ -75,6 +70,14 @@ public class RequestRegistryDto {
     private String categoryModifiedBy;
     private Date categoryModifiedDate;
 
+    //warehouse
+    private String locationName;
+    private String address;
+    private Boolean IsActive;
+    private String warehouseCreatedBy;
+    private Date warehouseCreatedDate;
+    private String warehouseModifiedBy;
+    private Date warehouseModifiedDate;
 
 
 }

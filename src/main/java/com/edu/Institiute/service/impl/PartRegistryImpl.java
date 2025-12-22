@@ -85,11 +85,6 @@ public class PartRegistryImpl implements PartService{
     }
 
     @Override
-    public CommonResponseDto savePart(RequestTeacherDto dto) {
-        return null;
-    }
-
-    @Override
     public CommonResponseDto updatePart(RequestRegistryDto dto, String partId){
         try {
             Optional<Status> status = statusRepo.findStatusById(dto.getStatus());
@@ -107,7 +102,7 @@ public class PartRegistryImpl implements PartService{
             part.setPartCreatedBy(dto.getPartCreatedBy());
             part.setPartCreatedDate(dto.getPartCreatedDate());
             part.setPartModifyBy(dto.getPartModifiedBy());
-            part.setPartModifyDate(dto.getPartModifyDate());
+            part.setPartModifyDate(dto.getPartModifiedDate());
             part.setStatus(status.get());
 
             partRepo.save(part);
@@ -128,13 +123,12 @@ public class PartRegistryImpl implements PartService{
         }
     }
     @Override
-
     public PaginatedResponsePartDto allPart() throws SQLException {
         try {
-            List<Part> allpart = partRepo.findAll();
+            List<Part> allPart = partRepo.findAll();
             List<PartResponseDto> partResponseDtos= new ArrayList<>();
 
-            for (Part r : allpart) {
+            for (Part r : allPart) {
                 partResponseDtos.add(
                         new PartResponseDto(
                                 r.getId(),
