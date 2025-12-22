@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public interface CustomerService {
     CommonResponseDto saveCustomer(RequestRegistryDto dto);
     CommonResponseDto updateCustomer(RequestRegistryDto dto, String customerId);
-  PaginatedResponseCustomerDto CustomerById(String customerId) throws SQLException;
+    PaginatedResponseCustomerDto CustomerById(String customerId) throws SQLException;
     CommonResponseDto removeCustomer(String customerId);
     PaginatedResponseCustomerDto allCustomer() throws SQLException;
 }
