@@ -61,7 +61,6 @@ public class RequestRegistryDto {
     private String partModifiedBy;
     private Date partModifiedDate;
 
-
     //category
     private String categoryName;
     private String categoryDescription;
@@ -79,6 +78,14 @@ public class RequestRegistryDto {
     private String warehouseModifiedBy;
     private Date warehouseModifiedDate;
 
+    //bin
+    private String id;
+    private String binCode;
+    private String binDescription;
+    private String binCreatedBy;
+    private Date binCreatedDate;
+    private String binModifiedBy;
+    private Date binModifiedDate;
 
 }
 

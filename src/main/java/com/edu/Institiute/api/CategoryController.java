@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1/category")
 public class CategoryController {
 
     @Autowired
@@ -32,6 +32,7 @@ public class CategoryController {
                 HttpStatus.CREATED
         );
     }
+
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("{CategoryId}")
     public ResponseEntity<StandardResponse> updateCategory(@RequestBody RequestRegistryDto data, @PathVariable String CategoryId) {
