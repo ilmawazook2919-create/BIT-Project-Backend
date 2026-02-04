@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import software.amazon.ion.Decimal;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -51,8 +52,8 @@ public class RequestRegistryDto {
     private String partDescription;
     private String partNumber;
     private String unitOfMeasure;
-    private Decimal unitCost;
-    private Decimal sellingPrice;
+    private BigDecimal unitCost;
+    private BigDecimal sellingPrice;
     private Float weight;
     private Integer dimensions;
     private Boolean isActive;
@@ -79,7 +80,6 @@ public class RequestRegistryDto {
     private Date warehouseModifiedDate;
 
     //bin
-    private String id;
     private String binCode;
     private String binDescription;
     private String binCreatedBy;

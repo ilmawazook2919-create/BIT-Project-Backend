@@ -43,8 +43,6 @@ public class WarehouseRegistryImpl implements WarehouseService {
     @Autowired
     private StatusMapper statusMapper;
 
-    @Autowired
-    private WarehouseService warehouseService;
     @Override
     public CommonResponseDto saveWarehouse(RequestRegistryDto dto) {
         System.out.println("Data Object :" + dto);
@@ -86,7 +84,7 @@ public class WarehouseRegistryImpl implements WarehouseService {
             warehouse.setWarehouseCreatedBy(dto.getWarehouseCreatedBy());
             warehouse.setWarehouseCreatedDate(dto.getWarehouseCreatedDate());
             warehouse.setWarehouseModifiedBy(dto.getWarehouseModifiedBy());
-            warehouse.setWarehouseModifiedDate(dto.getWarehouseModifiedDate());
+            warehouse.setWarehouseModifiedDate(new Date());
             warehouse.setStatus(status.get());
 
             warehouseRepo.save(warehouse);

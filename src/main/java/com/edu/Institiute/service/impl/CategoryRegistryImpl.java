@@ -145,33 +145,34 @@ public class CategoryRegistryImpl implements CategoryService{
 
     @Override
     public PaginatedResponseCategoryDto allCategory() throws SQLException {
-        try {
-            List<Category> allcategoryForProvidedId = categoryRepo.getAllCategories();
-            List<CategoryResponseDto> categoryResponseDto = new ArrayList<>();
-
-            for (Category r : allcategoryForProvidedId) {
-                categoryResponseDto.add(
-                        new CategoryResponseDto(
-                                r.getId(),
-                                r.getCategoryName(),
-                                r.getCategoryDescription(),
-                                r.getCategoryCreatedBy(),
-                                r.getCategoryCreatedDate(),
-                                r.getCategoryModifiedBy(),
-                                r.getCategoryModifiedDate(),
-                                statusMapper.toStatusDto(r.getStatus())
-
-                        )
-                );
-            }
-
-            return new PaginatedResponseCategoryDto(
-                    categoryRepo.count(),
-                    categoryResponseDto
-            );
-        }catch (Exception e){
-            throw new EntryNotFoundException("Can't find any data...!");
-        }
+        return null;
+//        try {
+//            List<Category> allcategoryForProvidedId = categoryRepo.getAllCategories();
+//            List<CategoryResponseDto> categoryResponseDto = new ArrayList<>();
+//
+//            for (Category r : allcategoryForProvidedId) {
+//                categoryResponseDto.add(
+//                        new CategoryResponseDto(
+//                                r.getId(),
+//                                r.getCategoryName(),
+//                                r.getCategoryDescription(),
+//                                r.getCategoryCreatedBy(),
+//                                r.getCategoryCreatedDate(),
+//                                r.getCategoryModifiedBy(),
+//                                r.getCategoryModifiedDate(),
+//                                statusMapper.toStatusDto(r.getStatus())
+//
+//                        )
+//                );
+//            }
+//
+//            return new PaginatedResponseCategoryDto(
+//                    categoryRepo.count(),
+//                    categoryResponseDto
+//            );
+//        }catch (Exception e){
+//            throw new EntryNotFoundException("Can't find any data...!");
+//        }
     }
 
 }
