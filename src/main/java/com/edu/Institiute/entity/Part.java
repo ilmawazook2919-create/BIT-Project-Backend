@@ -7,6 +7,7 @@ import lombok.Setter;
 import software.amazon.ion.Decimal;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -33,11 +34,11 @@ public class Part {
     @Column(name="unitOfMeasure")
     private String unitOfMeasure;
 
-    @Column(name="unitCost")
-    private Decimal unitCost;
+    @Column(name="unitCost", precision = 15, scale = 4)  // Added precision/scale
+    private BigDecimal unitCost;  // Changed to BigDecimal
 
-    @Column(name="sellingPrice")
-    private Decimal sellingPrice;
+    @Column(name="sellingPrice", precision = 15, scale = 4)  // Added precision/scale
+    private BigDecimal sellingPrice;  // Changed to BigDecimal
 
     @Column(name="weight")
     private Float weight;

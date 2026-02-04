@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import software.amazon.ion.Decimal;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -16,8 +17,8 @@ public class PartDto {
     private String partDescription;
     private String partNumber;
     private String unitOfMeasure;
-    private Decimal unitCost;
-    private Decimal sellingPrice;
+    private BigDecimal unitCost;
+    private BigDecimal sellingPrice;
     private Float weight;
     private Integer dimensions;
     private Boolean isActive;

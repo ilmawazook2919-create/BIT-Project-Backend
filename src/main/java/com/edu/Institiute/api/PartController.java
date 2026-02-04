@@ -14,10 +14,12 @@ import java.sql.SQLException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1/invetorypart")
 public class PartController {
+
     @Autowired
     private PartService partService;
+
     @PostMapping
     public ResponseEntity<StandardResponse> savedPart(@RequestBody RequestRegistryDto data){
         CommonResponseDto responseData = partService.savePart(data);

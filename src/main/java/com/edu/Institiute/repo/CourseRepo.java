@@ -29,6 +29,4 @@ public interface CourseRepo extends JpaRepository<Course,Integer> {
 
     @Query(value = "SELECT * FROM course WHERE id=:courseId", nativeQuery = true)
     Optional<Course> getCourseById(@Param("courseId") String courseId);
-
-    //SELECT c.coursename FROM institutedb.course as c where c.id NOT in (select shc.course_id from institutedb.student_has_course as shc where shc.student_id=0829);
 }

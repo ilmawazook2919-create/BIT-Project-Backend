@@ -102,7 +102,7 @@ public class PartRegistryImpl implements PartService{
             part.setPartCreatedBy(dto.getPartCreatedBy());
             part.setPartCreatedDate(dto.getPartCreatedDate());
             part.setPartModifyBy(dto.getPartModifiedBy());
-            part.setPartModifyDate(dto.getPartModifiedDate());
+            part.setPartModifyDate(new Date());
             part.setStatus(status.get());
 
             partRepo.save(part);
