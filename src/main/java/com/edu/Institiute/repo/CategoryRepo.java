@@ -1,6 +1,5 @@
 package com.edu.Institiute.repo;
 import com.edu.Institiute.entity.Category;
-import com.edu.Institiute.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,8 +22,9 @@ public interface CategoryRepo extends CrudRepository<Category, Integer> {
     @Query(value = "SELECT * FROM category WHERE id=:categoryId", nativeQuery = true)
     Category findByCategoryId(@Param("categoryId") String categoryId);
 
-    @Query(value = "SELECT * FROM category", nativeQuery = true)
     List<Category> getAllCategories();
+
+
     //
 
 }
