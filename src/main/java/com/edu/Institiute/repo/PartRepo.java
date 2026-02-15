@@ -6,16 +6,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PartRepo extends JpaRepository<Part,Integer> {
 
-    @Query(value = "SELECT * FROM  part WHERE id=:partId", nativeQuery = true)
+    @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
     Part getPartByProvideID(@Param("partId") String partId);
 
-    @Query(value = "SELECT * FROM  part WHERE id=:partId", nativeQuery = true)
+    @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
     List<Part> getAllPart(@Param("partId") String partId);
 
-    @Query(value = "SELECT * FROM  part WHERE id=:partId", nativeQuery = true)
+    @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
     Part findByPartId(@Param("partId") String partId);
+
+    @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
+    Optional<Part> getPartById(@Param("partId") String partId);
 }

@@ -87,6 +87,17 @@ public class RequestRegistryDto {
     private String binModifiedBy;
     private Date binModifiedDate;
 
+    //inventoryLevel
+    private String partId;
+    private String binId;
+    private int quantityOnHand;
+    private int minimumStockLevel;
+    private int maximumStockLevel;
+    private int createdBy;
+    private Date createdDate;
+    private int modifiedBy;
+    private Date modifiedDate;
+
 }
 
 
