@@ -1,18 +1,17 @@
-package com.edu.Institiute.dto;
-import com.edu.Institiute.entity.Status;
-import com.edu.Institiute.exception.EntryNotFoundException;
+package com.edu.Institiute.dto.responseDto;
+
+import com.edu.Institiute.dto.BinDto;
+import com.edu.Institiute.dto.PartDto;
+import com.edu.Institiute.dto.StatusDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InventoryLevelDto {
+public class InventoryLevelResponseDto {
     private int id;
     private PartDto part;
     private BinDto binId;
@@ -24,6 +23,7 @@ public class InventoryLevelDto {
     private int modifyBy;
     private Date modifyDate;
     private StatusDto status;
+
 
 
 }

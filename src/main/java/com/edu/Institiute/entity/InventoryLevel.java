@@ -19,7 +19,7 @@ public class InventoryLevel {
 
     @Id
     @Column(name="id")
-    private String id;
+    private int id;
 
     @Column(name = "quantity_on_hand")
     private int quantityOnHand;
@@ -31,13 +31,13 @@ public class InventoryLevel {
     private int maximumStockLevel;
 
     @Column(name = "created_by")
-    private String createdBy;
+    private int createdBy;
 
     @Column(name = "created_date")
     private Date createdDate;
 
     @Column(name = "modify_by")
-    private String modifyBy;
+    private int modifyBy;
 
     @Column(name = "modify_date")
     private Date modifyDate;
@@ -53,5 +53,7 @@ public class InventoryLevel {
     @ManyToOne
     @JoinColumn(name="status_id", referencedColumnName = "id")
     private Status status;
+
+
 
 }

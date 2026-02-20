@@ -1,6 +1,8 @@
 package com.edu.Institiute.dto.responseDto;
 
 
+import com.edu.Institiute.dto.BinDto;
+import com.edu.Institiute.dto.PartDto;
 import com.edu.Institiute.dto.StatusDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +22,7 @@ public class BinResponseDto {
     private String binModifiedBy;
     private Date binModifiedDate;
     private StatusDto status;
+
+
+
 }
