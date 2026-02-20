@@ -95,10 +95,12 @@ public class RequestRegistryDto {
     private int maximumStockLevel;
     private int createdBy;
     private Date createdDate;
-    private int modifiedBy;
-    private Date modifiedDate;
+    private int modifyBy;
+    private Date modifyDate;
 
-}
+
+    }
+
 
 
 
