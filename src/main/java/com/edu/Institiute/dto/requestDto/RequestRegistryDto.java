@@ -1,6 +1,7 @@
 package com.edu.Institiute.dto.requestDto;
 
 import com.edu.Institiute.dto.StatusDto;
+import com.edu.Institiute.dto.SupplierDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -97,6 +98,14 @@ public class RequestRegistryDto {
     private Date createdDate;
     private int modifyBy;
     private Date modifyDate;
+
+    //purchase order
+    private String purchaseNumber;
+    private SupplierDto supplierId;
+    private Date orderDate;
+    private Date expectedDeliveryDate;
+    private BigDecimal totalAmount;
+
 
 
     }
