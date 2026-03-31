@@ -1,7 +1,6 @@
 package com.edu.Institiute.dto.requestDto;
 
-import com.edu.Institiute.dto.StatusDto;
-import com.edu.Institiute.dto.SupplierDto;
+import com.edu.Institiute.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -89,7 +88,7 @@ public class RequestRegistryDto {
     private Date binModifiedDate;
 
     //inventoryLevel
-    private String partId;
+    private int part;
     private String binId;
     private int quantityOnHand;
     private int minimumStockLevel;
@@ -101,14 +100,21 @@ public class RequestRegistryDto {
 
     //purchase order
     private String purchaseNumber;
-    private SupplierDto supplierId;
+    private int supplierId;
     private Date orderDate;
     private Date expectedDeliveryDate;
     private BigDecimal totalAmount;
 
+    //purchase order item
+    private int purchaseOrderId;
+    private int partId;
+    private int quantityOrdered;
 
 
-    }
+
+
+
+}
 
 
 
