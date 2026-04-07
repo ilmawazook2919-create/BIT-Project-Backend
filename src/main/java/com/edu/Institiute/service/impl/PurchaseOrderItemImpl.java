@@ -76,7 +76,11 @@ public class PurchaseOrderItemImpl implements PurchaseOrderItemService {
                 new Date(0),
                 statusMapper.toStatusDto(status)
         );
-            purchaseOrderItemRepo.save(purchaseOrderItemMapper.dtoToPurchaseOrderItemEntity(new PurchaseOrderItemDto()));
+            System.out.println("my purchase order id " + purchaseOrderItemDto.getPurchaseOrderId());
+            System.out.println("my part id " + purchaseOrderItemDto.getPartId());
+            System.out.println("my status" + purchaseOrderItemDto.getStatus());
+
+            purchaseOrderItemRepo.save(purchaseOrderItemMapper.dtoToPurchaseOrderItemEntity(purchaseOrderItemDto));
 
             return new CommonResponseDto(201, "Purchase Order Item saved!", purchaseOrderItemDto.getId(), new ArrayList<>());
         }catch (Exception e){
