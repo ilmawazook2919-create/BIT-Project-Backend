@@ -57,6 +57,7 @@ public class PurchaseOrderRegistryImpl implements PurchaseOrderService {
         System.out.println("Data Object :" + dto);
         try {
             int PurchaseOrderId= generator. generateIntFourNumbers();
+            Supplier supplier = supplierRepo.findBySupplierId(dto.getSupplierId());
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
@@ -64,7 +65,7 @@ public class PurchaseOrderRegistryImpl implements PurchaseOrderService {
             PurchaseOrderDto purchaseOrderDto = new PurchaseOrderDto(
                     PurchaseOrderId,
                     dto.getPurchaseNumber(),
-                    dto.getSupplierId(),
+                    supplierMapper.toSupplierDto(supplier),
                     dto.getOrderDate(),
                     dto.getExpectedDeliveryDate(),
                     dto.getTotalAmount(),
@@ -89,7 +90,7 @@ public class PurchaseOrderRegistryImpl implements PurchaseOrderService {
     public CommonResponseDto updatePurchaseOrder(RequestRegistryDto dto, int purchaseOrderId) {
         try {
             Optional<Status> status = statusRepo.findStatusById(dto.getStatus());
-            Supplier supplier = supplierRepo.getSupplierByProvideID(dto.getPartId());
+            Supplier supplier = supplierRepo.getSupplierByProvideID(dto.getSupplierId());
 
             PurchaseOrder purchaseOrder = purchaseOrderRepo.getPurchaseOrderByProvideID(purchaseOrderId);
             purchaseOrder.setOrderDate(dto.getOrderDate());

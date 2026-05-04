@@ -1,8 +1,6 @@
 package com.edu.Institiute.service.impl;
-
 import com.edu.Institiute.dto.PartDto;
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
-import com.edu.Institiute.dto.requestDto.RequestTeacherDto;
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
 import com.edu.Institiute.dto.responseDto.PartResponseDto;
 import com.edu.Institiute.dto.responseDto.paginated.PaginatedResponsePartDto;
@@ -85,7 +83,7 @@ public class PartRegistryImpl implements PartService{
     }
 
     @Override
-    public CommonResponseDto updatePart(RequestRegistryDto dto, String partId){
+    public CommonResponseDto updatePart(RequestRegistryDto dto, int partId){
         try {
             Optional<Status> status = statusRepo.findStatusById(dto.getStatus());
 
@@ -112,7 +110,7 @@ public class PartRegistryImpl implements PartService{
         }
     }
     @Override
-    public CommonResponseDto removePart(String PartId) {
+    public CommonResponseDto removePart(int PartId) {
         Part Part= partRepo.findByPartId(PartId);
         if (Part != null){
             partRepo.delete(Part);
@@ -160,7 +158,7 @@ public class PartRegistryImpl implements PartService{
         }
     }
     @Override
-    public PaginatedResponsePartDto PartById(String partId) throws SQLException {
+    public PaginatedResponsePartDto PartById(int partId) throws SQLException {
         try {
             List<Part> allForProvidedPartId = partRepo.getAllPart(partId);
             List<PartResponseDto> partResponseArrayList = new ArrayList<>();

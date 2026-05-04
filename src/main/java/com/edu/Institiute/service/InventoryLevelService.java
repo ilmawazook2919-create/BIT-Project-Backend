@@ -16,4 +16,5 @@ public interface InventoryLevelService {
     PaginatedResponseInventoryLevelDto allInventoryLevel() throws SQLException;
 
     PaginatedResponseInventoryLevelDto InventoryLevelById(int inventoryLevelId) throws SQLException;
+
 }

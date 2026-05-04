@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 public interface PartService {
     CommonResponseDto savePart(RequestRegistryDto dto);
-    CommonResponseDto updatePart(RequestRegistryDto dto, String partId);
-    CommonResponseDto removePart(String partId);
+    CommonResponseDto updatePart(RequestRegistryDto dto, int partId);
+    CommonResponseDto removePart(int partId);
     PaginatedResponsePartDto allPart() throws SQLException;
-    PaginatedResponsePartDto PartById(String partId) throws SQLException;
+    PaginatedResponsePartDto PartById(int partId) throws SQLException;
 }

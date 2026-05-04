@@ -4,7 +4,6 @@ import com.edu.Institiute.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import software.amazon.ion.Decimal;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -100,7 +99,7 @@ public class RequestRegistryDto {
 
     //purchase order
     private String purchaseNumber;
-    private int supplierId;
+    private String supplierId;
     private Date orderDate;
     private Date expectedDeliveryDate;
     private BigDecimal totalAmount;
@@ -109,6 +108,10 @@ public class RequestRegistryDto {
     private int purchaseOrderId;
     private int partId;
     private int quantityOrdered;
+
+    //goods received note
+    private String purchaseOrder;
+    private Date receiptDate;
 
 
 

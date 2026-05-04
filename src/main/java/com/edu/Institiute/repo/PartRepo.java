@@ -12,14 +12,14 @@ import java.util.Optional;
 public interface PartRepo extends JpaRepository<Part,Integer> {
 
     @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
-    Part getPartByProvideID(@Param("partId") String partId);
+    Part getPartByProvideID(@Param("partId") int partId);
 
     @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
-    List<Part> getAllPart(@Param("partId") String partId);
+    List<Part> getAllPart(@Param("partId") int partId);
 
     @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
-    Part findByPartId(@Param("partId") String partId);
+    Part findByPartId(@Param("partId") int partId);
 
     @Query(value = "SELECT * FROM part WHERE id=:partId", nativeQuery = true)
-    Optional<Part> getPartById(@Param("partId") String partId);
+    Optional<Part> getPartById(@Param("partId") int partId);
 }

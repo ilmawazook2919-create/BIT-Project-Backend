@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SupplierResposeDto {
-    private int id;
+    private String id;
     private String supplierName;
     private String supplierContact;
     private String supplierEmail;

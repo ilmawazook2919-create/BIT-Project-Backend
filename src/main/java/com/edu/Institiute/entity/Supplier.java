@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
@@ -17,7 +16,7 @@ import java.util.List;
 public class Supplier {
     @Id
     @Column(name="id")
-    private int id;
+    private String id;
 
     @Column(name="supplierName")
     private String supplierName;

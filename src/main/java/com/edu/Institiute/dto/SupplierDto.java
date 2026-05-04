@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class SupplierDto {
-    private int id;
+    private String id;
     private String supplierName;
     private String supplierContact;
     private String supplierEmail;

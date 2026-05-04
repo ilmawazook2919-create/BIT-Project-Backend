@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PurchaseOrderItemRepo extends JpaRepository<PurchaseOrderItem, Integer> {
-    @Query(value = "SELECT * FROM purchase_Order_Item WHERE id=:purchase_Order_ItemId", nativeQuery = true)
+    @Query(value = "SELECT * FROM purchase_Order_Item WHERE id=:purchaseOrderItemId", nativeQuery = true)
     PurchaseOrderItem getPurchaseOrderItemByProvideID(@Param("purchaseOrderItemId") int purchaseOrderItemId);
 
     @Query(value = "SELECT * FROM purchase_Order_Item WHERE id=:purchaseOrderItemId", nativeQuery = true)
@@ -18,7 +18,7 @@ public interface PurchaseOrderItemRepo extends JpaRepository<PurchaseOrderItem, 
     @Query(value = "SELECT * FROM purchase_Order_Item WHERE id=:purchaseOrderItemId", nativeQuery = true)
     List<PurchaseOrderItem> getAllPurchaseOrderItem();
 
-    @Query(value = "SELECT * FROM purchase_Order_Item WHERE purchaseOrderId = p", nativeQuery = true)
-    List<PurchaseOrderItem>getAllPurchaseOrderItemForProvidedId(@Param("purchaseOrderId") int PurchaseOrderId);
+    @Query(value = "SELECT * FROM purchase_Order_Item WHERE id = purchaseOrderItemId ", nativeQuery = true)
+    List<PurchaseOrderItem>getAllPurchaseOrderItemForProvidedId(@Param("purchaseOrderItemId") int PurchaseOrderId);
 
 }
