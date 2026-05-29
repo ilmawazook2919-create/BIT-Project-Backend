@@ -13,8 +13,7 @@ import java.util.Date;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Table(name=" purchase_Order_Item")
-
+@Table(name=" purchase_order_item")
 public class PurchaseOrderItem {
 
     @Id
