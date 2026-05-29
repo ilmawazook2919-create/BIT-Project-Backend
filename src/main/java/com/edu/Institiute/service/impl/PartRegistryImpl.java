@@ -184,6 +184,7 @@ public class PartRegistryImpl implements PartService{
 
                         )
                 );
+
             }
 
             return new PaginatedResponsePartDto(

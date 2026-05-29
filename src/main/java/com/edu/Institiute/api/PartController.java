@@ -1,6 +1,4 @@
 package com.edu.Institiute.api;
-
-
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
 import com.edu.Institiute.service.PartService;
@@ -23,6 +21,7 @@ public class PartController {
     @PostMapping
     public ResponseEntity<StandardResponse> savedPart(@RequestBody RequestRegistryDto data){
         CommonResponseDto responseData = partService.savePart(data);
+        System.out.println("data"+data);
         return new ResponseEntity<>(
                 new StandardResponse(
                         responseData.getCode(),
