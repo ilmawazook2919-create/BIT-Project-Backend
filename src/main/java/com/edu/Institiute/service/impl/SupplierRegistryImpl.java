@@ -45,7 +45,7 @@ public class SupplierRegistryImpl implements SupplierService {
     public CommonResponseDto saveSupplier(RequestRegistryDto dto) {
         System.out.println("Data Object :" + dto);
         try {
-            int supplierId = generator.generateIntFourNumbers();
+            String supplierId = generator.generateFourNumbers();
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 

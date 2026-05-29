@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PurchaseOrderImpl implements PurchaseOrderService {
+public class PurchaseOrderRegistryImpl implements PurchaseOrderService {
 
     @Autowired
     private Generator generator;
@@ -55,18 +55,17 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
     @Override
     public CommonResponseDto savePurchaseOrder(RequestRegistryDto dto) {
         System.out.println("Data Object :" + dto);
-
         try {
             int PurchaseOrderId= generator. generateIntFourNumbers();
+            Supplier supplier = supplierRepo.findBySupplierId(dto.getSupplierId());
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
-            Supplier supplier = supplierRepo.getSupplierByProvideID(dto.getSupplierId());
             System.out.println("Data Object :" + dto);
             PurchaseOrderDto purchaseOrderDto = new PurchaseOrderDto(
                     PurchaseOrderId,
                     dto.getPurchaseNumber(),
-                   supplierMapper.toSupplierDto(supplier),
+                    supplierMapper.toSupplierDto(supplier),
                     dto.getOrderDate(),
                     dto.getExpectedDeliveryDate(),
                     dto.getTotalAmount(),
@@ -78,17 +77,15 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
 
             );
 
+
             System.out.println("Data Object 2:" + purchaseOrderDto);
             purchaseOrderRepo.save(purchaseOrderMapper.dtoToPurchaseOrderEntity(purchaseOrderDto));
 
-
             return new CommonResponseDto(201, "PurchaseOrder saved!", purchaseOrderDto.getPurchaseNumber(), new ArrayList<>());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EntryNotFoundException("Can't Save because of this Error -->  " + e);
         }
     }
-
     @Override
     public CommonResponseDto updatePurchaseOrder(RequestRegistryDto dto, int purchaseOrderId) {
         try {
@@ -104,7 +101,6 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
             purchaseOrder.setModifyBy(dto.getModifyBy());
             purchaseOrder.setModifyDate(dto.getModifyDate());
             purchaseOrder.setStatus(status.get());
-
 
             purchaseOrderRepo.save(purchaseOrder);
             return new CommonResponseDto(201, "Purchase  Updated!", purchaseOrder.getPurchaseNumber(), new ArrayList<>());

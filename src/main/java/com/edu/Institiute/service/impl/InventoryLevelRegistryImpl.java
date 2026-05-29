@@ -169,7 +169,7 @@ public class InventoryLevelRegistryImpl implements InventoryLevelService {
 
 
     @Override
-    public PaginatedResponseInventoryLevelDto inventoryLevelById(int inventoryLevelId) throws SQLException {
+    public PaginatedResponseInventoryLevelDto InventoryLevelById(int inventoryLevelId) throws SQLException {
         try {
             List<InventoryLevel> allInventoryLevelForProvidedId = inventoryLevelRepo.getAllInventoryLevelForProvidedId(inventoryLevelId);
             List<InventoryLevelResponseDto> inventoryLevelResponseDto = new ArrayList<>();

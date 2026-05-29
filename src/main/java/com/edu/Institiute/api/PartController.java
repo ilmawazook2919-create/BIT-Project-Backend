@@ -1,6 +1,4 @@
 package com.edu.Institiute.api;
-
-
 import com.edu.Institiute.dto.requestDto.RequestRegistryDto;
 import com.edu.Institiute.dto.responseDto.CommonResponseDto;
 import com.edu.Institiute.service.PartService;
@@ -14,7 +12,7 @@ import java.sql.SQLException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1/invetorypart")
+@RequestMapping("/api/v1/part")
 public class PartController {
 
     @Autowired
@@ -23,6 +21,7 @@ public class PartController {
     @PostMapping
     public ResponseEntity<StandardResponse> savedPart(@RequestBody RequestRegistryDto data){
         CommonResponseDto responseData = partService.savePart(data);
+        System.out.println("data"+data);
         return new ResponseEntity<>(
                 new StandardResponse(
                         responseData.getCode(),
@@ -34,7 +33,7 @@ public class PartController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @PutMapping("{PartId}")
-    public ResponseEntity<StandardResponse> updatePart(@RequestBody RequestRegistryDto data, @PathVariable String PartId) {
+    public ResponseEntity<StandardResponse> updatePart(@RequestBody RequestRegistryDto data, @PathVariable int PartId) {
         CommonResponseDto responseData = partService.updatePart(data, PartId);
         return new ResponseEntity<>(
                 new StandardResponse(
@@ -47,7 +46,7 @@ public class PartController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @DeleteMapping("{PartId}")
-    public ResponseEntity<StandardResponse> deletePart(@PathVariable String PartId){
+    public ResponseEntity<StandardResponse> deletePart(@PathVariable int PartId){
         CommonResponseDto responseData = partService.removePart(PartId);
         return new ResponseEntity<>(
                 new StandardResponse(
@@ -60,7 +59,7 @@ public class PartController {
     }
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("{PartId}")
-    public ResponseEntity<StandardResponse> getPart(@PathVariable String PartId)throws SQLException {
+    public ResponseEntity<StandardResponse> getPart(@PathVariable int PartId)throws SQLException {
         return new ResponseEntity<>(
                 new StandardResponse(
                         200,

@@ -22,6 +22,6 @@ public interface InventoryLevelRepo extends JpaRepository<InventoryLevel,String>
     @Query(value = "SELECT * FROM inventoryLevel WHERE id=:inventoryLevelId", nativeQuery = true)
     List<InventoryLevel> getAllInventoryLevel();
 
-    @Query(value = "SELECT * FROM bin WHERE id=:binId", nativeQuery = true)
+    @Query(value = "SELECT * FROM inventoryLevel WHERE id=:inventoryLevelId", nativeQuery = true)
     List<InventoryLevel>getAllInventoryLevelForProvidedId(@Param("inventoryLevelId") int inventoryLevelId);
 }

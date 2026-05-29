@@ -1,6 +1,8 @@
 package com.edu.Institiute.utill.mapper;
 
+import com.edu.Institiute.dto.GoodsReceivedNoteDto;
 import com.edu.Institiute.dto.UserDto;
+import com.edu.Institiute.entity.GoodsReceivedNote;
 import com.edu.Institiute.entity.User;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
@@ -9,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     User dtoToUserEntity(UserDto userDto);
+
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SupplierRepo extends JpaRepository<Supplier,Integer>{
+public interface SupplierRepo extends JpaRepository<Supplier,String>{
     @Query(value = "SELECT * FROM supplier WHERE id=:supplierId", nativeQuery = true)
     Supplier getSupplierByProvideID(@Param("supplierId") String supplierId);
     @Query(value = "SELECT * FROM supplier WHERE id=:supplierId", nativeQuery = true)

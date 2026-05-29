@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Table(name = "purchase_order")
+@Table(name = "purchaseOrder")
 public class PurchaseOrder {
     @Id
     @Column(name="id")
