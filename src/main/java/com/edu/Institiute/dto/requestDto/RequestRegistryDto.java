@@ -113,6 +113,9 @@ public class RequestRegistryDto {
     private String purchaseOrder;
     private Date receiptDate;
 
+    //grn item note
+    private String goodsReceivedNoteId;
+    private String quantityReceived;
 
 
 

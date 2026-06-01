@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PurchaseOrderRegistryImpl implements PurchaseOrderService {
+public class PurchaseOrderImpl implements PurchaseOrderService {
 
     @Autowired
     private Generator generator;
