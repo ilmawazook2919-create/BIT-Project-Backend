@@ -1,14 +1,15 @@
 package com.edu.Institiute.dto.responseDto.paginated;
-import com.edu.Institiute.dto.responseDto.GoodsReceivedNoteResponseDto;
+import com.edu.Institiute.dto.responseDto.SalesOrderResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaginatedResponseGoodsReceivedNoteDto {
+public class PaginatedResponseSalesOrderDto {
     private Long count;
-    private List<GoodsReceivedNoteResponseDto> dataList;
+    private List<SalesOrderResponseDto> dataList;
 }

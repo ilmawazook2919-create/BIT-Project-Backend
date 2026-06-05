@@ -117,6 +117,11 @@ public class RequestRegistryDto {
     private String goodsReceivedNoteId;
     private String quantityReceived;
 
+    //salesOrder
+    private String orderNumber;
+    private String customerId;
+    private String warehouseId;
+    private Date requiredDate;
 
 
 
