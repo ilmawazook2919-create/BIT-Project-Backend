@@ -123,6 +123,9 @@ public class RequestRegistryDto {
     private String warehouseId;
     private Date requiredDate;
 
+    //salesOrderItem
+    private int salesOrderId;
+
 
 
 }
