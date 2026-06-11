@@ -8,16 +8,16 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SalesOrderRepo extends JpaRepository<SalesOrder, Integer> {
-    @Query(value = "SELECT * FROM salesOrder WHERE id=:salesOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order WHERE id=:salesOrderId", nativeQuery = true)
     SalesOrder getSalesOrderByProvideId(@Param("salesOrderId")int salesOrderId);
 
-    @Query(value = "SELECT * FROM salesOrder WHERE id=:salesOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order WHERE id=:salesOrderId", nativeQuery = true)
     SalesOrder findBySalesOrderId(@Param("salesOrderId") int salesOrderId);
 
-    @Query(value = "SELECT * FROM salesOrder WHERE id=:salesOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order WHERE id=:salesOrderId", nativeQuery = true)
     List<SalesOrder> getAllSalesOrder();
 
-    @Query(value = "SELECT * FROM salesOrder WHERE id=:salesOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order WHERE id=:salesOrderId", nativeQuery = true)
     List<SalesOrder>getAllSalesOrderForProvidedId(@Param("salesOrderId") int  salesOrderId);
 }
 

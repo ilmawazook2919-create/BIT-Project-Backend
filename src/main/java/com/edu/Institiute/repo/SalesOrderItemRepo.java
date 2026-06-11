@@ -9,16 +9,16 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SalesOrderItemRepo extends JpaRepository<SalesOrderItem, Integer> {
-    @Query(value = "SELECT * FROM salesOrderItem WHERE id=:salesOrderItemId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order_item WHERE id=:salesOrderItemId", nativeQuery = true)
     SalesOrderItem getSalesOrderItemByProvideId(@Param("salesOrderItemId")int salesOrderItemId);
 
-    @Query(value = "SELECT * FROM salesOrderItem WHERE id=:salesOrderItemId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order_item WHERE id=:salesOrderItemId", nativeQuery = true)
     SalesOrderItem findBySalesOrderItemId(@Param("salesOrderItemId") int salesOrderItemId);
 
-    @Query(value = "SELECT * FROM salesOrderItem WHERE id=:salesOrderItemId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order_item WHERE id=:salesOrderItemId", nativeQuery = true)
     List<SalesOrderItem> getAllSalesOrderItem();
 
-    @Query(value = "SELECT * FROM salesOrderItem WHERE id=:salesOrderItemId", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_order_item WHERE id=:salesOrderItemId", nativeQuery = true)
     List<SalesOrderItem>getAllSalesOrderItemForProvidedId(@Param("salesOrderItemId") int  salesOrderItemId);
 
 }
