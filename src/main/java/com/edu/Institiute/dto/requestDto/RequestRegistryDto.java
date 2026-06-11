@@ -126,6 +126,11 @@ public class RequestRegistryDto {
     //salesOrderItem
     private int salesOrderId;
 
+    //pickingList
+    private Date shipmentDate;
+    private String shippedBy;
+    private int trackingNumber;
+
 
 
 }

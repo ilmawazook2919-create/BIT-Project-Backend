@@ -71,8 +71,8 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
                     dto.getTotalAmount(),
                     dto.getCreatedBy(),
                     new Date(),
-                    dto.getModifyBy(),
-                    new Date(),
+                    0,
+                    new Date(0),
                     statusMapper.toStatusDto(status)
 
             );
