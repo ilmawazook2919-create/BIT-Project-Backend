@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -32,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String userName = null;
         String jwtToken = null;
 
-        if (requestTokenHeader!=null && requestTokenHeader.startsWith("Bearer")){
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
                 userName = jwtUil.getUserNameFromToken(jwtToken);
@@ -45,18 +46,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             System.out.println("Jwt token not started with the Bearer");
         }
 
-        if (userName !=null && SecurityContextHolder.getContext().getAuthentication()==null){
-            UserDetails userDetails = jwtService.loadUserByUsername(userName);
+        if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            try {
+                UserDetails userDetails = jwtService.loadUserByUsername(userName);
 
-            if (jwtUil.validateToken(jwtToken,userDetails)){
+                if (jwtUil.validateToken(jwtToken, userDetails)) {
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities()
+                    );
 
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
-
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
+                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+            } catch (UsernameNotFoundException e) {
+                System.out.println("JWT user not found: " + userName);
             }
         }
         filterChain.doFilter(request,response);

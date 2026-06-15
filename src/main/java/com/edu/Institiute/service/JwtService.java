@@ -34,20 +34,14 @@ public class JwtService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepo.findById(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        User user = userRepo.findById(username).get();
-
-        if (user!=null){
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUserName(),
-                    user.getUserPassword(),
-                    getAuthority(user)
-            );
-
-        }else {
-            throw new UsernameNotFoundException("User not found with username" + username);
-        }
-
+        return new org.springframework.security.core.userdetails.User(
+                user.getUserName(),
+                user.getUserPassword(),
+                getAuthority(user)
+        );
     }
 
     private Set getAuthority(User user){
@@ -69,7 +63,8 @@ public class JwtService implements UserDetailsService {
 
         UserDetails userDetails = loadUserByUsername(username);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
-        User user = userRepo.findById(username).get();
+        User user = userRepo.findById(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(
                 user,
