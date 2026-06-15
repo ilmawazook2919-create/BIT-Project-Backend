@@ -23,7 +23,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -54,17 +53,15 @@ public class PickingListImpl  implements PickingListService {
     @Autowired
     private StatusMapper statusMapper;
 
-    @Autowired
-    private PickingListService pickingListService;
-
-
     @Override
     public CommonResponseDto savePickingList(RequestRegistryDto dto) {
         System.out.println("Data Object :" + dto);
         try {
             int pickingListId = generator.generateIntFourNumbers();
-            SalesOrder salesOrderObj = salesOrderRepo.getSalesOrderByProvideId(dto.getSalesOrderId());
-            User userObj = userRepo.getUserByProvideId(dto.getShippedBy());
+            SalesOrder salesOrderObj = salesOrderRepo.findById(dto.getSalesOrderId())
+                    .orElseThrow(() -> new EntryNotFoundException("Sales order not found with id: " + dto.getSalesOrderId()));
+            User userObj = userRepo.findById(dto.getShippedBy())
+                    .orElseThrow(() -> new EntryNotFoundException("User not found with id: " + dto.getShippedBy()));
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
@@ -93,20 +90,24 @@ public class PickingListImpl  implements PickingListService {
     @Override
     public CommonResponseDto updatePickingList( RequestRegistryDto dto, int pickingListId) {
         try {
-            Optional<Status> status = statusRepo.findStatusById(dto.getStatus());
-            SalesOrder salesOrder = salesOrderRepo.getSalesOrderByProvideId(dto.getSalesOrderId());
-            User user = userRepo.getUserByProvideId(dto.getShippedBy());
+            Status status = statusRepo.findStatusById(dto.getStatus())
+                    .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
+            SalesOrder salesOrder = salesOrderRepo.findById(dto.getSalesOrderId())
+                    .orElseThrow(() -> new EntryNotFoundException("Sales order not found with id: " + dto.getSalesOrderId()));
+            User user = userRepo.findById(dto.getShippedBy())
+                    .orElseThrow(() -> new EntryNotFoundException("User not found with id: " + dto.getShippedBy()));
 
-
-            PickingList pickingList = pickingListRepo.getPickingListByProvideId((pickingListId));
+            PickingList pickingList = pickingListRepo.findById(pickingListId)
+                    .orElseThrow(() -> new EntryNotFoundException("Can't find any pickingList Data...!"));
+            pickingList.setSalesOrder(salesOrder);
             pickingList.setShipmentDate(dto.getShipmentDate());
+            pickingList.setUser(user);
             pickingList.setTrackingNumber(dto.getTrackingNumber());
             pickingList.setCreatedBy(dto.getCreatedBy());
             pickingList.setCreatedDate(dto.getCreatedDate());
             pickingList.setModifyBy(dto.getModifyBy());
             pickingList.setModifyDate(new Date());
-            pickingList.setStatus(status.get());
-
+            pickingList.setStatus(status);
 
             pickingListRepo.save(pickingList);
 
@@ -118,7 +119,7 @@ public class PickingListImpl  implements PickingListService {
     }
     @Override
     public CommonResponseDto removePickingList(int PickingListId) {
-        PickingList PickingList= pickingListRepo.findByPickingListId(PickingListId);
+        PickingList PickingList = pickingListRepo.findById(PickingListId).orElse(null);
 
 
         if (PickingList!= null){
@@ -170,25 +171,24 @@ public class PickingListImpl  implements PickingListService {
     @Override
     public PaginatedResponsePickingListDto PickingListById(int pickingListId) throws SQLException {
         try {
-            List<PickingList> allPickingListForProvidedId = pickingListRepo.getAllPickingListForProvidedId(pickingListId);
+            PickingList r = pickingListRepo.findById(pickingListId)
+                    .orElseThrow(() -> new EntryNotFoundException("Can't find any data for provided ID...!"));
             List<PickingListResponseDto> pickingListResponseDto = new ArrayList<>();
 
-            for (PickingList r : allPickingListForProvidedId) {
-                pickingListResponseDto.add(
-                        new PickingListResponseDto(
-                                r.getId(),
-                                salesOrderMapper.toSalesOrderDto(r.getSalesOrder()),
-                                r.getShipmentDate(),
-                                userMapper.toUserDto(r.getUser()),
-                                r.getTrackingNumber(),
-                                r.getCreatedBy(),
-                                r.getCreatedDate(),
-                                r.getModifyBy(),
-                                r.getModifyDate(),
-                                statusMapper.toStatusDto(r.getStatus())
-                        )
-                );
-            }
+            pickingListResponseDto.add(
+                    new PickingListResponseDto(
+                            r.getId(),
+                            salesOrderMapper.toSalesOrderDto(r.getSalesOrder()),
+                            r.getShipmentDate(),
+                            userMapper.toUserDto(r.getUser()),
+                            r.getTrackingNumber(),
+                            r.getCreatedBy(),
+                            r.getCreatedDate(),
+                            r.getModifyBy(),
+                            r.getModifyDate(),
+                            statusMapper.toStatusDto(r.getStatus())
+                    )
+            );
 
             return new PaginatedResponsePickingListDto(
                     pickingListRepo.count(),

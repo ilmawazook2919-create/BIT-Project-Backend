@@ -49,7 +49,7 @@ public class SalesOrder {
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name="warehouse_id", referencedColumnName = "id")
+    @JoinColumn(name="warehouse_id", referencedColumnName = "id", columnDefinition = "varchar(255)")
     private Warehouse warehouse;
 
     @ManyToOne

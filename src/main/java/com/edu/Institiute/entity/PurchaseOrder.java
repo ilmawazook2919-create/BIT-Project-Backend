@@ -46,7 +46,7 @@ public class PurchaseOrder {
     private Date modifyDate;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id", columnDefinition = "varchar(255)")
     private Supplier supplier;
 
     @ManyToOne

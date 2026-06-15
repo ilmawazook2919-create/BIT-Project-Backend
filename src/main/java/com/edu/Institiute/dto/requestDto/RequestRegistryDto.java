@@ -1,5 +1,6 @@
 package com.edu.Institiute.dto.requestDto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.edu.Institiute.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -123,7 +124,8 @@ public class RequestRegistryDto {
     private String warehouseId;
     private Date requiredDate;
 
-    //salesOrderItem
+    //salesOrderItem / pickingList
+    @JsonAlias({"salesOrder"})
     private int salesOrderId;
 
     //pickingList
