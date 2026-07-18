@@ -64,7 +64,7 @@ public class PickingListImpl  implements PickingListService {
         try {
             int pickingListId = generator.generateIntFourNumbers();
             SalesOrder salesOrderObj = salesOrderRepo.getSalesOrderByProvideId(dto.getSalesOrderId());
-            User userObj = userRepo.getUserByProvideId(dto.getShippedBy());
+            User userObj = userRepo.findByUserName(dto.getShippedBy());
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
@@ -95,7 +95,7 @@ public class PickingListImpl  implements PickingListService {
         try {
             Optional<Status> status = statusRepo.findStatusById(dto.getStatus());
             SalesOrder salesOrder = salesOrderRepo.getSalesOrderByProvideId(dto.getSalesOrderId());
-            User user = userRepo.getUserByProvideId(dto.getShippedBy());
+            User user = userRepo.findByUserName(dto.getShippedBy());
 
 
             PickingList pickingList = pickingListRepo.getPickingListByProvideId((pickingListId));

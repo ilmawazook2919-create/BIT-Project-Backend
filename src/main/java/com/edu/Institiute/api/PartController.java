@@ -21,7 +21,6 @@ public class PartController {
     @PostMapping
     public ResponseEntity<StandardResponse> savedPart(@RequestBody RequestRegistryDto data){
         CommonResponseDto responseData = partService.savePart(data);
-        System.out.println("data"+data);
         return new ResponseEntity<>(
                 new StandardResponse(
                         responseData.getCode(),
