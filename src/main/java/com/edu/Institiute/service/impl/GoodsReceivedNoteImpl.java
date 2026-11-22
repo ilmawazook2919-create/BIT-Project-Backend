@@ -63,6 +63,9 @@ public class GoodsReceivedNoteImpl implements GoodsReceivedNoteService {
         try {
             String goodsReceivedNoteId = generator.generateFourNumbers();
             PurchaseOrder purchaseOrder = purchaseOrderRepo.getPurchaseOrderByProvideID(dto.getPurchaseOrderId());
+            if (purchaseOrder == null) {
+                throw new EntryNotFoundException("Purchase order not found with id: " + dto.getPurchaseOrderId());
+            }
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
@@ -78,10 +81,12 @@ public class GoodsReceivedNoteImpl implements GoodsReceivedNoteService {
                     statusMapper.toStatusDto(status)
             );
 
-            System.out.println("Data Object 2:" + GoodsReceivedNoteDto);
-            goodsReceivedNoteRepo.save(goodsReceivedNoteMapper.dtoToGoodsReceivedNoteEntity(GoodsReceivedNoteDto));
+            GoodsReceivedNote goodsReceivedNote = goodsReceivedNoteMapper.dtoToGoodsReceivedNoteEntity(GoodsReceivedNoteDto);
+            goodsReceivedNote.setPurchaseOrder(purchaseOrder);
+            goodsReceivedNote.setStatus(status);
+            goodsReceivedNoteRepo.save(goodsReceivedNote);
 
-            return new CommonResponseDto(201, "Part saved!", GoodsReceivedNoteDto.getId(), new ArrayList<>());
+            return new CommonResponseDto(201, "Goods received note saved!", goodsReceivedNote.getId(), new ArrayList<>());
         } catch (Exception e) {
             throw new EntryNotFoundException("Can't Save because of this Error -->  " + e);
         }
@@ -96,6 +101,7 @@ public class GoodsReceivedNoteImpl implements GoodsReceivedNoteService {
 
 
             GoodsReceivedNote goodsReceivedNote = goodsReceivedNoteRepo.getGoodsReceivedNoteByProvideID(goodsReceivedNoteId);
+            goodsReceivedNote.setPurchaseOrder(purchaseOrder);
             goodsReceivedNote.setReceiptDate(dto.getReceiptDate());
 
             goodsReceivedNote.setCreatedBy(dto.getCreatedBy());

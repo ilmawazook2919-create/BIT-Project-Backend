@@ -61,6 +61,9 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
     @Autowired
     private GoodsReceivedNoteItemService goodsReceivedNoteItemService;
 
+    @Autowired
+    private InventoryLevelRepo inventoryLevelRepo;
+
     @Override
     public CommonResponseDto saveGoodsReceivedNoteItem(RequestRegistryDto dto) {
         System.out.println("Data Object :" + dto);
@@ -69,6 +72,15 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
             GoodsReceivedNote goodsReceivedNote = goodsReceivedNoteRepo.getGoodsReceivedNoteByProvideID(dto.getGoodsReceivedNoteId());
             Part partObj = partRepo.getPartByProvideID(dto.getPartId());
             Bin binObj = binRepo.getBinByProvideID(dto.getBinId());
+            if (goodsReceivedNote == null) {
+                throw new EntryNotFoundException("Goods received note not found with id: " + dto.getGoodsReceivedNoteId());
+            }
+            if (partObj == null) {
+                throw new EntryNotFoundException("Part not found with id: " + dto.getPartId());
+            }
+            if (binObj == null) {
+                throw new EntryNotFoundException("Bin not found with id: " + dto.getBinId());
+            }
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
@@ -86,10 +98,16 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
                     statusMapper.toStatusDto(status)
             );
 
-            System.out.println("Data Object 2:" + GoodsReceivedNoteItemDto);
-            goodsReceivedNoteItemRepo.save(goodsReceivedNoteItemMapper.dtoToGoodsReceivedNoteItemEntity(GoodsReceivedNoteItemDto));
+            GoodsReceivedNoteItem goodsReceivedNoteItem = goodsReceivedNoteItemMapper.dtoToGoodsReceivedNoteItemEntity(GoodsReceivedNoteItemDto);
+            goodsReceivedNoteItem.setGoodsReceivedNote(goodsReceivedNote);
+            goodsReceivedNoteItem.setPart(partObj);
+            goodsReceivedNoteItem.setBin(binObj);
+            goodsReceivedNoteItem.setStatus(status);
+            goodsReceivedNoteItem.setQuantityReceived(dto.getQuantityReceived());
+            goodsReceivedNoteItemRepo.save(goodsReceivedNoteItem);
+            applyStockChange(partObj, binObj, toIntQty(dto.getQuantityReceived()), status, dto.getCreatedBy());
 
-            return new CommonResponseDto(201, "Part saved!", GoodsReceivedNoteItemDto.getId(), new ArrayList<>());
+            return new CommonResponseDto(201, "Goods received note item saved!", goodsReceivedNoteItem.getId(), new ArrayList<>());
         } catch (Exception e) {
             throw new EntryNotFoundException("Can't Save because of this Error -->  " + e);
         }
@@ -105,6 +123,14 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
 
 
             GoodsReceivedNoteItem goodsReceivedNoteItem = goodsReceivedNoteItemRepo.getGoodsReceivedNoteItemByProvideId((goodsReceivedNoteItemId));
+            int oldQty = toIntQty(goodsReceivedNoteItem.getQuantityReceived());
+            Part oldPart = goodsReceivedNoteItem.getPart();
+            Bin oldBin = goodsReceivedNoteItem.getBin();
+            int newQty = toIntQty(dto.getQuantityReceived());
+
+            goodsReceivedNoteItem.setGoodsReceivedNote(goodsReceivedNote);
+            goodsReceivedNoteItem.setPart(part);
+            goodsReceivedNoteItem.setBin(bin);
             goodsReceivedNoteItem.setQuantityReceived(dto.getQuantityReceived());
             goodsReceivedNoteItem.setCreatedBy(dto.getCreatedBy());
             goodsReceivedNoteItem.setCreatedDate(dto.getCreatedDate());
@@ -112,7 +138,15 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
             goodsReceivedNoteItem.setModifyDate(new Date());
             goodsReceivedNoteItem.setStatus(status.get());
 
-
+            boolean sameLocation = oldPart != null && oldBin != null && part != null && bin != null
+                    && oldPart.getId() == part.getId()
+                    && oldBin.getId().equals(bin.getId());
+            if (sameLocation) {
+                applyStockChange(part, bin, newQty - oldQty, status.get(), dto.getModifyBy());
+            } else {
+                applyStockChange(oldPart, oldBin, -oldQty, status.get(), dto.getModifyBy());
+                applyStockChange(part, bin, newQty, status.get(), dto.getModifyBy());
+            }
 
             goodsReceivedNoteItemRepo.save(goodsReceivedNoteItem);
 
@@ -128,6 +162,13 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
 
 
         if (GoodsReceivedNoteItem!= null){
+            applyStockChange(
+                    GoodsReceivedNoteItem.getPart(),
+                    GoodsReceivedNoteItem.getBin(),
+                    -toIntQty(GoodsReceivedNoteItem.getQuantityReceived()),
+                    GoodsReceivedNoteItem.getStatus(),
+                    GoodsReceivedNoteItem.getModifyBy()
+            );
             goodsReceivedNoteItemRepo.delete(GoodsReceivedNoteItem);
             return new CommonResponseDto(201, "GoodsReceivedNoteItem was deleted! ", true, new ArrayList<>());
         }
@@ -204,6 +245,45 @@ public class GoodsReceivedNoteItemImpl implements GoodsReceivedNoteItemService {
         }catch (Exception e){
             throw new EntryNotFoundException("Can't find any data for provided ID...!");
         }
+    }
+
+    private void applyStockChange(Part part, Bin bin, int delta, Status status, int userId) {
+        if (part == null || bin == null || delta == 0) {
+            return;
+        }
+        InventoryLevel level = inventoryLevelRepo.findByPartAndBin(part.getId(), bin.getId());
+        if (level == null) {
+            InventoryLevel created = new InventoryLevel(
+                    generator.generateIntFourNumbers(),
+                    Math.max(delta, 0),
+                    0,
+                    0,
+                    userId,
+                    new Date(),
+                    0,
+                    new Date(0),
+                    part,
+                    bin,
+                    status
+            );
+            inventoryLevelRepo.save(created);
+            return;
+        }
+        int next = level.getQuantityOnHand() + delta;
+        level.setQuantityOnHand(Math.max(next, 0));
+        level.setModifyBy(userId);
+        level.setModifyDate(new Date());
+        if (status != null) {
+            level.setStatus(status);
+        }
+        inventoryLevelRepo.save(level);
+    }
+
+    private int toIntQty(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return 0;
+        }
+        return (int) Double.parseDouble(value.trim());
     }
 
 }

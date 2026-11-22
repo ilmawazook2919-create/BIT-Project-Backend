@@ -10,13 +10,13 @@ import java.util.List;
 
 @Repository
 public interface PurchaseOrderRepo extends JpaRepository<PurchaseOrder, Integer> {
-    @Query(value = "SELECT * FROM PurchaseOrder WHERE id=:purchaseOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM purchaseOrder WHERE id=:purchaseOrderId", nativeQuery = true)
     PurchaseOrder getPurchaseOrderByProvideID(@Param("purchaseOrderId") int purchaseOrderId);
-    @Query(value = "SELECT * FROM PurchaseOrder WHERE id=:purchaseOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM purchaseOrder WHERE id=:purchaseOrderId", nativeQuery = true)
     PurchaseOrder findByPurchaseOrderId(@Param("purchaseOrderId") int purchaseOrderId);
-    @Query(value = "SELECT * FROM PurchaseOrder WHERE id=:purchaseOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM purchaseOrder", nativeQuery = true)
     List<PurchaseOrder> getAllPurchaseOrder();
-    @Query(value = "SELECT * FROM PurchaseOrderId WHERE id=:purchaseOrderId", nativeQuery = true)
+    @Query(value = "SELECT * FROM purchaseOrder WHERE id=:purchaseOrderId", nativeQuery = true)
     List<PurchaseOrder>getAllPurchaseOrderForProvidedId(@Param("purchaseOrderId") int purchaseOrderId);
 
 

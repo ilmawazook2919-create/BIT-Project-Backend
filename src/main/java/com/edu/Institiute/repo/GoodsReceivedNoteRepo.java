@@ -14,7 +14,7 @@ public interface GoodsReceivedNoteRepo  extends JpaRepository<GoodsReceivedNote,
     @Query(value = "SELECT * FROM goodsReceivedNote WHERE id=:goodsReceivedNoteId", nativeQuery = true)
     GoodsReceivedNote findByGoodsReceivedNoteId(@Param("goodsReceivedNoteId") String goodsReceivedNoteId);
 
-    @Query(value = "SELECT * FROM goodsReceivedNote WHERE id=:goodsReceivedNoteId", nativeQuery = true)
+    @Query(value = "SELECT * FROM goodsReceivedNote", nativeQuery = true)
     List<GoodsReceivedNote> getAllGoodsReceivedNote();
 
     @Query(value = "SELECT * FROM goodsReceivedNote WHERE id=:goodsReceivedNoteId", nativeQuery = true)
