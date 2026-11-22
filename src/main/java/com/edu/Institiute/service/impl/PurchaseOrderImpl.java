@@ -58,6 +58,9 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
         try {
             int PurchaseOrderId= generator. generateIntFourNumbers();
             Supplier supplier = supplierRepo.findBySupplierId(dto.getSupplierId());
+            if (supplier == null) {
+                throw new EntryNotFoundException("Supplier not found with id: " + dto.getSupplierId());
+            }
             Status status = statusRepo.findStatusById(dto.getStatus())
                     .orElseThrow(() -> new EntryNotFoundException("Status not found with id: " + dto.getStatus()));
 
@@ -78,10 +81,12 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
             );
 
 
-            System.out.println("Data Object 2:" + purchaseOrderDto);
-            purchaseOrderRepo.save(purchaseOrderMapper.dtoToPurchaseOrderEntity(purchaseOrderDto));
+            PurchaseOrder purchaseOrder = purchaseOrderMapper.dtoToPurchaseOrderEntity(purchaseOrderDto);
+            purchaseOrder.setSupplier(supplier);
+            purchaseOrder.setStatus(status);
+            purchaseOrderRepo.save(purchaseOrder);
 
-            return new CommonResponseDto(201, "PurchaseOrder saved!", purchaseOrderDto.getPurchaseNumber(), new ArrayList<>());
+            return new CommonResponseDto(201, "PurchaseOrder saved!", purchaseOrderDto.getId(), new ArrayList<>());
         } catch (Exception e) {
             throw new EntryNotFoundException("Can't Save because of this Error -->  " + e);
         }
@@ -93,6 +98,8 @@ public class PurchaseOrderImpl implements PurchaseOrderService {
             Supplier supplier = supplierRepo.getSupplierByProvideID(dto.getSupplierId());
 
             PurchaseOrder purchaseOrder = purchaseOrderRepo.getPurchaseOrderByProvideID(purchaseOrderId);
+            purchaseOrder.setPurchaseNumber(dto.getPurchaseNumber());
+            purchaseOrder.setSupplier(supplier);
             purchaseOrder.setOrderDate(dto.getOrderDate());
             purchaseOrder.setExpectedDeliveryDate(dto.getExpectedDeliveryDate());
             purchaseOrder.setTotalAmount(dto.getTotalAmount());

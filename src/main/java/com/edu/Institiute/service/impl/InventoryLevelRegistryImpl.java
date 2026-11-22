@@ -78,7 +78,11 @@ public class InventoryLevelRegistryImpl implements InventoryLevelService {
                     new Date(0),
                     statusMapper.toStatusDto(status)
             );
-            inventoryLevelRepo.save(inventoryLevelMapper.dtoToInventoryLevelEntity(inventoryLevelDto));
+            InventoryLevel inventoryLevel = inventoryLevelMapper.dtoToInventoryLevelEntity(inventoryLevelDto);
+            inventoryLevel.setPart(partObj);
+            inventoryLevel.setBin(binObj);
+            inventoryLevel.setStatus(status);
+            inventoryLevelRepo.save(inventoryLevel);
 
             return new CommonResponseDto(201, "Inventory Level saved!", inventoryLevelDto.getId(), new ArrayList<>());
         }catch (Exception e){
@@ -95,6 +99,8 @@ public class InventoryLevelRegistryImpl implements InventoryLevelService {
 
 
             InventoryLevel inventoryLevel = inventoryLevelRepo.getInventoryLevelByProvideID(inventoryLevelId);
+            inventoryLevel.setPart(part);
+            inventoryLevel.setBin(bin);
             inventoryLevel.setQuantityOnHand(dto.getQuantityOnHand());
             inventoryLevel.setMinimumStockLevel(dto.getMinimumStockLevel());
             inventoryLevel.setMaximumStockLevel(dto.getMaximumStockLevel());
